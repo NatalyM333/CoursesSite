@@ -26,12 +26,7 @@ class UserController extends Controller
     public function actionIndex()
     {
        
-        // var_dump($role);
-        // echo('br');
-        // $auth = Yii::$app->getAuthManager();
-        // $role = $auth->getRole('admin');
-        // $auth->assign($role,2);
-       // die();
+        
        $dataProvider = new ActiveDataProvider([
         'query' => user::find(),
     ]);
@@ -59,16 +54,33 @@ class UserController extends Controller
         $user = User::findOne(['id' => $id]);
         if($model->load(Yii::$app->request->post()))
         {
-         return  $this->redirect(['user/index']);
+            var_dump($model->email);
+                $auth = Yii::$app->authManager;
+                
+                if(array_keys(Yii::$app->AuthManager->getRolesByUser($user['id'])) != null){
+                    $role_old = array_keys(Yii::$app->AuthManager->getRolesByUser($_POST['id']))[0];
+    
+                    $role_old = $auth->getRole($role_old);
+                    Yii::$app->AuthManager->revoke($role_old, $user['id']);
+                } 
+                $role_new = $auth->getRole($model->email);
+                $auth->assign($role_new, $user['id']);
+            
+        // return  $this->redirect(['user/index']);
         }
 
         $model->username = $user->username;
         $model->email = $user->email;
-      
+        if(array_keys(Yii::$app->AuthManager->getRolesByUser($user['id'])) != null){
+            $role = array_keys(Yii::$app->AuthManager->getRolesByUser($user['id']))[0];
+        } else {
+            $role = '';
+        }
         return $this->render('view', [
             'model' => $model,
             'user_id'=> $user->id,
             'user'=>$user1,
+            'role'=>$role,
             'role_array'=>$role_array,
         ]);
 
@@ -87,18 +99,19 @@ class UserController extends Controller
         return  $this->redirect(['user/index']);
     }
     public function actionChangeRole(){
-        if($_POST['id'] != '' && $_POST['role'] != '')
-        {
-            $auth = Yii::$app->AuthManager;
-            //$role_old = array_keys(Yii::$app->getAuthManager->getRolesByUser($_POST['id']))[0];
-            //$role_old = $auth->getRole($role_old);
-            Yii::$app->AuthManager->revokeAll($_POST['id']);
-            $role_new = $auth->getRole($_POST['role']);
-            $auth->assign($role_new,$_POST['id']);
-            return true;
-
-        }
-        return false;
+         if ($_POST['id'] != '' && $_POST['role'] != ''){
+                $auth = Yii::$app->authManager;
+                
+                if(array_keys(Yii::$app->AuthManager->getRolesByUser($_POST['id'])) != null){
+                    $role_old = array_keys(Yii::$app->AuthManager->getRolesByUser($_POST['id']))[0];
+    
+                    $role_old = $auth->getRole($role_old);
+                    Yii::$app->AuthManager->revoke($role_old, $_POST['id']);
+                } 
+                $role_new = $auth->getRole($_POST['role']);
+                $auth->assign($role_new, $_POST['id']);
+            }
+            return false;
     }
 
    

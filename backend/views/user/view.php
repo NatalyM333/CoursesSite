@@ -4,14 +4,17 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use kartik\select2\Select2;
 use yii\widgets\ActiveForm;
+
 $js = <<<JS
 $('.role').change(function(){
     var id =$(this).attr('name');
     var role = $(this).val();
+   
     alert(id+ ' - ' + role);
     $.ajax({
-        type:'post',
         url: 'change-role',
+        type:'post',
+      
         data:{'id': id,
         'role':role
         },
@@ -48,20 +51,28 @@ $this->registerJs($js);
         </div>
         <div class="row">
             <div class="col-md-12">
-                
-            <?= Select2::widget([
-                'name' => $user_id,
-                'id' => 'role',
-                'data' => $role_array,
-                'options' => [
-                    'class'=> 'role',
-                    'placeholder' => 'Select provinces ...',
-                    'multiple' => false
-                ],
-            ]);?>
+            <p style="margin-top: 5px;">Cuurent role</p>
+                <?=$role?>
             </div>
         </div>
-       
+        <div class="row">
+            <div class="col-md-12">
+            <?=$form->field($model, 'email')->widget(Select2::classname(),[
+                    
+                    'data' => $role_array,
+                    'options' => ['placeholder' => ''],
+                    'pluginOptions' => [
+                        'allowClear' => true
+                    ],
+                ]);?>
+           
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <?=Html::submitButton('Зберегти',['class'=>'btn btn-success btn-block]'])?>
+            </div>
+        </div>
         </div>
         
       
