@@ -138,7 +138,7 @@ class LiftController extends Controller
         $initialPreview = [];
         $initialConfig = [];
         foreach ($images as $image) {
-            $initialPreview[]='' . $image;
+            $initialPreview[]='../../' . $image;
           
             $initialConfig []=[
                 'key' => $image,
@@ -180,6 +180,7 @@ class LiftController extends Controller
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
         if(isset($_POST['key'])){
             $image = $_POST['key'];
+           
             unlink($_POST['key']);
             $lift = Lift::findOne(['id' => $id]);
             $images = json_decode($lift->url_image,true);
