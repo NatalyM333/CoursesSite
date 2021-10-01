@@ -54,19 +54,18 @@ class UserController extends Controller
         $user = User::findOne(['id' => $id]);
         if($model->load(Yii::$app->request->post()))
         {
-            var_dump($model->email);
+            var_dump($model->username);
                 $auth = Yii::$app->authManager;
                 
                 if(array_keys(Yii::$app->AuthManager->getRolesByUser($user['id'])) != null){
-                    $role_old = array_keys(Yii::$app->AuthManager->getRolesByUser($_POST['id']))[0];
-    
+                    $role_old = array_keys(Yii::$app->AuthManager->getRolesByUser($user['id']))[0];
                     $role_old = $auth->getRole($role_old);
                     Yii::$app->AuthManager->revoke($role_old, $user['id']);
                 } 
-                $role_new = $auth->getRole($model->email);
+                $role_new = $auth->getRole($model->username);
                 $auth->assign($role_new, $user['id']);
             
-        // return  $this->redirect(['user/index']);
+         return  $this->redirect(['user/index']);
         }
 
         $model->username = $user->username;
@@ -74,12 +73,10 @@ class UserController extends Controller
         if(array_keys(Yii::$app->AuthManager->getRolesByUser($user['id'])) != null){
             $role = array_keys(Yii::$app->AuthManager->getRolesByUser($user['id']))[0];
         } else {
-            $role = '';
+            $role= '';
         }
         return $this->render('view', [
             'model' => $model,
-            'user_id'=> $user->id,
-            'user'=>$user1,
             'role'=>$role,
             'role_array'=>$role_array,
         ]);

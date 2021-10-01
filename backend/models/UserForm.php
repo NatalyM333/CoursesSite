@@ -5,7 +5,7 @@ namespace backend\models;
 use yii\base\Model;
 
 class UserForm extends Model
-{public $id;
+{   public $id;
     public $username;
     public $email;
     public $role;
@@ -24,6 +24,7 @@ class UserForm extends Model
     {
         return [
             'username' => 'Назва ',
+            'role' => 'Роль',
         ];
     }
   

@@ -57,8 +57,7 @@ $this->registerJs($js);
         </div>
         <div class="row">
             <div class="col-md-12">
-            <?=$form->field($model, 'email')->widget(Select2::classname(),[
-                    
+            <?=$form->field($model, 'username')->widget(Select2::classname(),[
                     'data' => $role_array,
                     'options' => ['placeholder' => ''],
                     'pluginOptions' => [
