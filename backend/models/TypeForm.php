@@ -11,7 +11,7 @@ class TypeForm extends Model
     public function rules()
     {
         return [
-            [['name',], 'string', 'message' => 'Invalid field type'],
+            [['name','description'], 'string', 'message' => 'Invalid field type'],
             [['name',], 'required', 'message' => 'The value is required']
         ];
         

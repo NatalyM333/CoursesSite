@@ -43,13 +43,7 @@ class UserController extends Controller
         foreach ($role as $key => $value) {
             $role_array[$key] = $key;
         }
-        $user1 = User::find()->asArray()->all();
-        // $this->render('index',[
-        //     'user'=>$user,
-        //     'role_array'=>$role_array,
-        // ]
-        // );
-        ////
+      
         $model = new UserForm;
         $user = User::findOne(['id' => $id]);
         if($model->load(Yii::$app->request->post()))

@@ -22,6 +22,7 @@ AppAsset::register($this);
     <?php $this->registerCsrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
+  
 </head>
 <body>
 <?php $this->beginBody() ?>
@@ -39,6 +40,10 @@ AppAsset::register($this);
     $menu_home = [
         'label' => 'Home',
         'url' => ['/site/index'],
+    ];
+    $menu_producer=[
+        'label' => 'Producer',
+        'url' => ['/producer/index'],
     ];
     $menu_type=[
         'label' => 'Type',
@@ -66,6 +71,7 @@ AppAsset::register($this);
         . '</li>';
         if(Yii::$app->user->can('admin'))
         {
+            $menuItems[] = $menu_producer;
             $menuItems[] = $menu_type;
             $menuItems[] = $menu_user;
            
@@ -95,9 +101,7 @@ AppAsset::register($this);
 
 <footer class="footer">
     <div class="container">
-        <p class="pull-left">&copy; <?= Html::encode(Yii::$app->name) ?> <?= date('Y') ?></p>
-
-        <p class="pull-right"><?= Yii::powered() ?></p>
+      
     </div>
 </footer>
 
@@ -105,3 +109,19 @@ AppAsset::register($this);
 </body>
 </html>
 <?php $this->endPage() ?>
+
+
+<script>
+    //delete link that destroy menu
+    window.onload=function(){
+        
+    let links = document.getElementsByTagName('link');
+    for( let i = 0 ; i < links.length; i++){
+        
+        console.log(links[i].getAttribute("href"));
+        if(links[i].getAttribute("href").localeCompare('/CoursesSite/backend/web/assets/d092983b/css/bootstrap.css')==0)
+        links[i].remove();
+    }
+    }
+    </script>
+

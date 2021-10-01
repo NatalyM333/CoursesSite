@@ -6,15 +6,6 @@ use yii\grid\GridView;
 $this->title = 'Types';
 $this->params['breadcrumbs'][] = $this->title;
 
-$this->registerCss(
-"
-    .btn-update 
-    {
-        background-color: rgba(255,193,7,255);
-        color: black;
-    }
-"
-);
 
 $i = 1;
 

@@ -7,7 +7,8 @@
     /**
      * 
      * @property int $id
-     * @property string $title
+     * @property string $name
+     * @property string $description
      */
     class Type extends ActiveRecord
     {

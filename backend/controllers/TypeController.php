@@ -7,9 +7,7 @@
     use yii\data\ActiveDataProvider;
     use yii\helpers\ArrayHelper;
     use yii\filters\AccessControl;
-
     use common\models\Type;
-    use common\models\Product;
     use backend\models\TypeForm;
    
     class TypeController extends Controller
@@ -55,7 +53,7 @@
                     Yii::$app->session->setFlash('error', 'Error! Type NOT saved into DB ');
                 }
                 
-                return  $this->redirect(['type/index']);
+                return  $this->redirect(['index']);
             }
         
             return $this->render('create', [
@@ -75,6 +73,7 @@
             {
                 $type->name = $model->name;
                 $type->description = $model->description;
+               
 
                 if($type->save())
                 {
@@ -84,7 +83,7 @@
                     Yii::$app->session->setFlash('error', 'Помилка НЕ збережено в БД ');
                 }
             
-                return  $this->redirect(['type/index']);
+                return  $this->redirect(['index']);
             
             }
 
@@ -101,30 +100,18 @@
             ]);
         }
 
-        public function actionDelete(){
-            
-            Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;// формат відповіді
-            
-            if($_POST) {
-                $model = new TypeForm; 
-                $id = $_POST['id'];
-                $type = Type::findOne(['id' => $id]);
-                $products = Product::find()->where(['type_id' => $id])->all();
-            
-                if($type->delete()){
-
-                    foreach($products as $product) {
-                        $images = json_decode($product->url_image, true);
-                        foreach($images as $image){
-                            unlink($image);
-                        }
-                    }
-                    return  false;
-                }
-                else{
-                    Yii::$app->session->setFlash('error', 'Error! Type NOT deleted from DB');
-                    return $this->redirect('index');
-                }
+        public function actionDelete($id)
+        {
+            $model = new Type;
+            $type = Type::findOne(['id' => $id]);
+            if($type -> delete())
+            {
+             Yii::$app->session->setFlash('success', ' видалено з БД ');
             }
+            else{
+                Yii::$app->session->setFlash('error', 'Помилка НЕ видалено з БД ');
+            }
+           
+            return $this->redirect(['type/index']);
         }
     }
