@@ -54,7 +54,6 @@ class UserController extends Controller
         $user = User::findOne(['id' => $id]);
         if($model->load(Yii::$app->request->post()))
         {
-            var_dump($model->username);
                 $auth = Yii::$app->authManager;
                 
                 if(array_keys(Yii::$app->AuthManager->getRolesByUser($user['id'])) != null){

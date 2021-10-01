@@ -20,12 +20,12 @@ $this->params['breadcrumbs'][] = $this->title;
                 'username',
                 'email',
                 [
-                    'class' => 'yii\grid\ActionColumn', 'template' => '{view}{update} {delete}',
+                    'class' => 'yii\grid\ActionColumn', 'template' => '{view}{delete}',
                     'contentOptions' => ['style' => 'width: 30%'],
                     'buttons' => [
                         
                         'view' => function ($url, $model, $key){
-                            return Html::a('View', ['view','id' => $model->id], ['class' => 'btn btn-info']);
+                            return Html::a('View', ['view','id' => $model->id], ['class' => 'btn btn-info','style'=>'margin-right:5px;']);
                         },
                         
                         'delete' => function ($url, $model, $key){

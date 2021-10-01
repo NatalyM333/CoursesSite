@@ -40,9 +40,12 @@ AppAsset::register($this);
         'label' => 'Home',
         'url' => ['/site/index'],
     ];
-   
+    $menu_type=[
+        'label' => 'Type',
+        'url' => ['/type/index'],
+    ];
     $menu_user=[
-        'label' => 'user',
+        'label' => 'User',
         'url' => ['/user/index'],
     ];
 
@@ -63,7 +66,7 @@ AppAsset::register($this);
         . '</li>';
         if(Yii::$app->user->can('admin'))
         {
-           
+            $menuItems[] = $menu_type;
             $menuItems[] = $menu_user;
            
         }
