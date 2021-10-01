@@ -22,6 +22,7 @@ AppAsset::register($this);
     <?php $this->registerCsrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
   
 </head>
 <body>
@@ -41,13 +42,17 @@ AppAsset::register($this);
         'label' => 'Home',
         'url' => ['/site/index'],
     ];
-    $menu_producer=[
+    $menu_producer = [
         'label' => 'Producer',
         'url' => ['/producer/index'],
     ];
-    $menu_type=[
+    $menu_type = [
         'label' => 'Type',
         'url' => ['/type/index'],
+    ];
+    $menu_lift = [
+        'label' => 'Lift',
+        'url' => ['/lift/index'],
     ];
     $menu_user=[
         'label' => 'User',
@@ -73,6 +78,7 @@ AppAsset::register($this);
         {
             $menuItems[] = $menu_producer;
             $menuItems[] = $menu_type;
+            $menuItems[] = $menu_lift;
             $menuItems[] = $menu_user;
            
         }

@@ -50,17 +50,14 @@ class ProducerController extends Controller
             $producer->description = $model->description;
             if($producer->save())
             {
-             Yii::$app->session->setFlash('success', 'Товар збережено в БД ');
+           //  Yii::$app->session->setFlash('success', 'Виробника збережено в БД ');
             }
             else{
                 Yii::$app->session->setFlash('error', 'Помилка НЕ збережено в БД ');
-            }
-           
+            }  
          return  $this->redirect(['producer/index']);
           
         }
-      
-
         return $this->render('create', [
             'model' => $model,
            
@@ -79,7 +76,7 @@ class ProducerController extends Controller
           
             if($producer->save())
             {
-             Yii::$app->session->setFlash('success', 'Товар збережено в БД ');
+             //Yii::$app->session->setFlash('success', 'Товар збережено в БД ');
             }
             else{
                 Yii::$app->session->setFlash('error', 'Помилка НЕ збережено в БД ');
@@ -109,7 +106,7 @@ class ProducerController extends Controller
         $producer = Producer::findOne(['id' => $id]);
         if($producer -> delete())
             {
-             Yii::$app->session->setFlash('success', 'Товар видалено з БД ');
+             //Yii::$app->session->setFlash('success', 'Виробника видалено з БД ');
             }
             else{
                 Yii::$app->session->setFlash('error', 'Помилка НЕ видалено з БД ');

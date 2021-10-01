@@ -47,7 +47,7 @@
                 
                 if($type->save())
                 {
-                    Yii::$app->session->setFlash('success', 'Type saved into DB');
+                   // Yii::$app->session->setFlash('success', 'Type saved into DB');
                 }
                 else { 
                     Yii::$app->session->setFlash('error', 'Error! Type NOT saved into DB ');
@@ -77,7 +77,7 @@
 
                 if($type->save())
                 {
-                    Yii::$app->session->setFlash('success', 'Товар збережено в БД ');
+                    //Yii::$app->session->setFlash('success', 'Товар збережено в БД ');
                 }
                 else{
                     Yii::$app->session->setFlash('error', 'Помилка НЕ збережено в БД ');
@@ -106,7 +106,7 @@
             $type = Type::findOne(['id' => $id]);
             if($type -> delete())
             {
-             Yii::$app->session->setFlash('success', ' видалено з БД ');
+            // Yii::$app->session->setFlash('success', ' видалено з БД ');
             }
             else{
                 Yii::$app->session->setFlash('error', 'Помилка НЕ видалено з БД ');
