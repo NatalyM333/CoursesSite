@@ -33,8 +33,8 @@ $this->params['breadcrumbs'][] = $this->title;
             <?= $form->field($model, 'imageFile')->widget(FileInput::classname(),[
             'name' => 'attachment_49[]',
             'options'=>[
-                'multiple'=>true,
-                'max' => 1,
+                'multiple'=>false,
+                
             ],
             'pluginOptions' => [
                 'initialPreview'=> $initialPreview,

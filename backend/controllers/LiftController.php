@@ -110,7 +110,7 @@ class LiftController extends Controller
                 $imagePath = array_merge($image, $imagePath);
                 $lift->url_image = json_encode($imagePath);
             }
-            $lift->url_image = json_encode($imagePath);
+            
             if($lift->save())
             {
              //Yii::$app->session->setFlash('success', 'Товар збережено в БД ');
