@@ -16,6 +16,8 @@ use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\ContactForm;
 use common\models\Type;
+use common\models\Producer;
+use common\models\Lift;
 
 /**
  * Site controller
@@ -142,7 +144,25 @@ class SiteController extends Controller
             'types' =>Type::find()->all()
         ]);
     }
+    public function actionProducers($id)
+    {
+        
+        return $this->render('producers',[
+            'producers' =>Producer::find()->all(),
+            'type_id' => $id,
+            'type' => Type::find()->where(['id' => $id])->one()->name,
 
+        ]);
+    }
+    public function actionLifts($type_id, $producer_id)
+    {
+
+        return $this->render('lifts',[
+            'lifts' => Producer::find()->all(),
+            'type' => Type::find()->where(['id' => $type_id])->one()->name,
+            'producer' => Producer::find()->where(['id' => $producer_id])->one()->name,
+        ]);
+    }
     /**
      * Displays about page.
      *
