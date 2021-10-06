@@ -158,9 +158,10 @@ class SiteController extends Controller
     {
 
         return $this->render('lifts',[
-            'lifts' => Producer::find()->all(),
+            'lifts' => Lift::find()->where(['type_id' => $type_id, 'producer_id' => $producer_id])->all(),
             'type' => Type::find()->where(['id' => $type_id])->one()->name,
             'producer' => Producer::find()->where(['id' => $producer_id])->one()->name,
+            'type_id' => $type_id,
         ]);
     }
     /**

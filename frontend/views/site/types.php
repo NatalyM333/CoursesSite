@@ -1,6 +1,6 @@
 <?php
 use yii\helpers\Url;
-$this->params['breadcrumbs'][] = ['label' => 'Види', 'url' => ['types']];
+$this->params['breadcrumbs'][] = ['label' => 'Види'];
 foreach ($types as $key => $value) {
     $images= json_decode($value->url_image,true);
 ?>
