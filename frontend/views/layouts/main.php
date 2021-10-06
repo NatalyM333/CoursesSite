@@ -28,7 +28,8 @@ AppAsset::register($this);
 <header>
     <?php
     NavBar::begin([
-        'brandLabel' => 'Монітор Україна',
+       // 'brandLabel' => Html::img('../../images/type/70d3c84a17fa5043d773af4f820b833c.jpg', ['alt' => Yii::$app->name]) . 'Монітор-Україна',
+        'brandLabel' => 'Монітор-Україна',
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
             'class' => 'navbar navbar-expand-md navbar-dark bg-dark fixed-top',
@@ -41,8 +42,8 @@ AppAsset::register($this);
        
     ];
     if (Yii::$app->user->isGuest) {
-        $menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];
-        $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
+        $menuItems[] = ['label' => 'Реєстрація', 'url' => ['/site/signup']];
+        $menuItems[] = ['label' => 'Вхід', 'url' => ['/site/login']];
     } else {
         $menuItems[] = ['label' => 'Профіль', 'url' => ['/site/profile']];
         $menuItems[] = '<li>'
