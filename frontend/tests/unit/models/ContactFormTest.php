@@ -18,7 +18,7 @@ class ContactFormTest extends \Codeception\Test\Unit
             'body' => 'body of current message',
         ];
 
-        expect_that($model->sendEmail('admin@example.com'));
+        expect_that($model->sendEmail('exadmin@ample.com'));
 
         // using Yii2 module actions to check email was sent
         $this->tester->seeEmailIsSent();

@@ -15,6 +15,7 @@ use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\ContactForm;
+use common\models\Type;
 
 /**
  * Site controller
@@ -123,9 +124,9 @@ class SiteController extends Controller
         $model = new ContactForm();
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             if ($model->sendEmail(Yii::$app->params['adminEmail'])) {
-                Yii::$app->session->setFlash('success', 'Thank you for contacting us. We will respond to you as soon as possible.');
+                Yii::$app->session->setFlash('success', 'Дякуємо, що зв’язалися з нами. Ми відповімо Вам якомога швидше.');
             } else {
-                Yii::$app->session->setFlash('error', 'There was an error sending your message.');
+                Yii::$app->session->setFlash('error', 'Під час надсилання вашого повідомлення сталася помилка.');
             }
 
             return $this->refresh();
@@ -133,6 +134,12 @@ class SiteController extends Controller
 
         return $this->render('contact', [
             'model' => $model,
+        ]);
+    }
+    public function actionTypes()
+    {
+        return $this->render('types',[
+            'types' =>Type::find()->all()
         ]);
     }
 
