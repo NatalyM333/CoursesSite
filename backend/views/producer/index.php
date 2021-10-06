@@ -6,8 +6,7 @@ use yii\grid\GridView;
 $this->title = 'Producer';
 $this->params['breadcrumbs'][] = $this->title;
 
-
-
+$i = 1;
 ?>
 <div class="row">
     
@@ -21,30 +20,29 @@ $this->params['breadcrumbs'][] = $this->title;
             ]
         );?>
     </div>
-    <div class="col-md-12">
-        <?= GridView::widget([
-            'dataProvider' => $dataProvider,
-            'columns' => [
-                ['class' => 'yii\grid\SerialColumn'],
-                'id',
-                'name',
-                [
-                    'class' => 'yii\grid\ActionColumn', 'template' => '{update} {delete}',
-                    'contentOptions' => ['style' => 'width: 30%'],
-                    'buttons' => [
-                        
-                        
-                        'update' => function ($url, $model, $key){
-                            return Html::a('Update', ['update','id' => $model->id], ['class' => 'btn btn-success']);
-                        },
-                        'delete' => function ($url, $model, $key){
-                            return Html::a('Delete', ['delete','id' => $model->id], ['class' => 'btn btn-danger']);
-                        }
-                    ]
-                ]
-            ]
-        ]);
-        ?>
-    </div>
+    
+    <table class="table" id="producers">
+    <thead style="background-color: #22262A; color: white;">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Id</th>
+        <th scope="col">Name</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <?php foreach($producers as $producer) : ?>
+          <tr>
+              <th scope="row"><?= $i++; ?></th>
+              <th scope="row"><?= $producer['id']; ?></th>
+              <td><?= $producer['name'] ?></td>
+              <td> 
+                <?=  Html::a('Update', ['update','id' => $producer['id']], ['class' => 'btn btn-info']);  ?>
+                <?=  Html::a('Delete', ['delete','id' => $producer['id']], ['class' => 'btn btn-danger']);  ?>
+              </td>
+          </tr>
+      <?php endforeach ?>
+    </tbody>
+  </table>
    
 </div>

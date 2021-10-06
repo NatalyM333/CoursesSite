@@ -38,22 +38,27 @@
         public function actionCreate()
         {
             $model = new TypeForm;
-
+           
             if($model->load(Yii::$app->request->post()))
             {
-                $type = new Type;
-                $type->name = $model->name;
-                $type->description = $model->description;
-                
-                if($type->save())
+                $model->imageFile = UploadedFile::getInstances($model,'imageFile');
+                if($imagePath=$model->upload())
                 {
-                   // Yii::$app->session->setFlash('success', 'Type saved into DB');
+                    $type = new Type;
+                    $type->name = $model->name;
+                    $type->description = $model->description;
+                    $type->url_image = json_encode($imagePath);
+                    if($type->save())
+                    {
+                    // Yii::$app->session->setFlash('success', 'Type saved into DB');
+                    }
+                    else { 
+                        Yii::$app->session->setFlash('error', 'Error! Type NOT saved into DB ');
+                    }
                 }
-                else { 
-                    Yii::$app->session->setFlash('error', 'Error! Type NOT saved into DB ');
-                }
-                
+                else return  $this->redirect(['user/index']);
                 return  $this->redirect(['index']);
+            
             }
         
             return $this->render('create', [
@@ -71,18 +76,28 @@
 
             if($model->load(Yii::$app->request->post()))
             {
-                $type->name = $model->name;
-                $type->description = $model->description;
-               
-
-                if($type->save())
+                $model->imageFile = UploadedFile::getInstances($model,'imageFile');
+                $imagePath=$model->upload();
+                if($imagePath !== false)
                 {
-                    //Yii::$app->session->setFlash('success', 'Товар збережено в БД ');
+                        $type->name = $model->name;
+                        $type->description = $model->description;
+                        if($imagePath)
+                        {
+                            $image = json_decode($type->url_image,true);
+                            $imagePath = array_merge($image, $imagePath);
+                            $type->url_image = json_encode($imagePath);
+                        }
+                        $type->url_image = json_encode($imagePath);
+
+                        if($type->save())
+                        {
+                            //Yii::$app->session->setFlash('success', 'Товар збережено в БД ');
+                        }
+                        else{
+                            Yii::$app->session->setFlash('error', 'Помилка НЕ збережено в БД ');
+                        }
                 }
-                else{
-                    Yii::$app->session->setFlash('error', 'Помилка НЕ збережено в БД ');
-                }
-            
                 return  $this->redirect(['index']);
             
             }
@@ -91,7 +106,14 @@
             $model->description = $type->description;  
             $initialPreview = [];
             $initialConfig = [];
-        
+            $images= json_decode($type->url_image,true);
+            foreach ($images as $image) {
+                $initialPreview[]='../../' . $image;
+              
+                $initialConfig []=[
+                    'key' => $image,
+                ];
+            }
             return $this->render('create', [
                 'model' => $model,        
                 'initialPreview' => $initialPreview,
@@ -104,6 +126,12 @@
         {
             $model = new Type;
             $type = Type::findOne(['id' => $id]);
+            $images = json_decode($type->url_image,true);
+       
+            foreach ($images as $value) {  
+                unlink($value);
+            }
+      
             if($type -> delete())
             {
             // Yii::$app->session->setFlash('success', ' видалено з БД ');
@@ -113,5 +141,25 @@
             }
            
             return $this->redirect(['type/index']);
+        }
+        public function actionFileDeleteType($id){
+        
+            Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+            if(isset($_POST['key'])){
+                $image = $_POST['key'];
+               
+                unlink($_POST['key']);
+                $type = Type::findOne(['id' => $id]);
+                $images = json_decode($type->url_image,true);
+                $result = [];
+                foreach ($images as $value) {
+                    if($image != $value){
+                        $result[] = $value;
+                    }
+                }
+                $type->url_image = json_encode($result);
+                $type->save();
+            }
+            return true;
         }
     }

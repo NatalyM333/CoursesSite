@@ -8,6 +8,7 @@
      * 
      * @property int $id
      * @property string $name
+     * @property string $url_image
      * @property string $description
      */
     class Type extends ActiveRecord

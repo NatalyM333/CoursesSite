@@ -52,26 +52,25 @@ $this->params['breadcrumbs'][] = $this->title;
             </div>
         </div>
         <div class="row">
-                    <div class="col-md-12">
-                   <?= $form->field($model, 'imageFile')->widget(FileInput::classname(),[
-    'name' => 'attachment_49[]',
-    'options'=>[
-        'multiple'=>true,
-        'max' => 10,
-    ],
-    'pluginOptions' => [
-        'initialPreview'=> $initialPreview,
-        'initialPreviewConfig' => $initialConfig,
-        'initialPreviewAsData'=>true,
-        'showCaption' => false,
-        'showUpload' => false,
-        'removeClass' => 'btn btn-default pull-right',
-        'browseClass' => 'btn btn-primary pull-right',
-        'overwriteInitial'=>true,
-        'maxFileSize'=>2800,
-        'deleteUrl' => Url::to(['/lift/' . $lift_id . '/file-delete-lift']),
-        
-    ]
+            <div class="col-md-12">
+            <?= $form->field($model, 'imageFile')->widget(FileInput::classname(),[
+            'name' => 'attachment_49[]',
+            'options'=>[
+                'multiple'=>true,
+                'max' => 10,
+            ],
+            'pluginOptions' => [
+                'initialPreview'=> $initialPreview,
+                'initialPreviewConfig' => $initialConfig,
+                'initialPreviewAsData'=>true,
+                'showCaption' => false,
+                'showUpload' => false,
+                'removeClass' => 'btn btn-default pull-right',
+                'browseClass' => 'btn btn-primary pull-right',
+                'overwriteInitial'=>true,
+                'maxFileSize'=>2800,
+                'deleteUrl' => Url::to(['/lift/' . $lift_id . '/file-delete-lift']),        
+            ]
 ]); ?>
 
 </div>

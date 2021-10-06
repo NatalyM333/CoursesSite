@@ -6,9 +6,7 @@ use yii\grid\GridView;
 $this->title = 'Types';
 $this->params['breadcrumbs'][] = $this->title;
 
-
 $i = 1;
-
 ?>
 
 <div class="panel panel-default">

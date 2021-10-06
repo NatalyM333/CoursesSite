@@ -31,12 +31,10 @@ class ProducerController extends Controller
     public function actionIndex()
     {
        // $producer = Producer::find()->all();
-        $dataProvider = new ActiveDataProvider([
-            'query' => Producer::find(),
-        ]);
+       
 
         return $this->render('index',[
-            'dataProvider' => $dataProvider
+            'producers' =>Producer::find()->asArray()->all()
         ]);
     }
 

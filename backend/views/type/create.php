@@ -30,9 +30,32 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
         <div class="row">
             <div class="col-md-12">
+            <?= $form->field($model, 'imageFile')->widget(FileInput::classname(),[
+            'name' => 'attachment_49[]',
+            'options'=>[
+                'multiple'=>true,
+                'max' => 1,
+            ],
+            'pluginOptions' => [
+                'initialPreview'=> $initialPreview,
+                'initialPreviewConfig' => $initialConfig,
+                'initialPreviewAsData'=>true,
+                'showCaption' => false,
+                'showUpload' => false,
+                'removeClass' => 'btn btn-default pull-right',
+                'browseClass' => 'btn btn-primary pull-right',
+                'overwriteInitial'=>true,
+                'maxFileSize'=>2800,
+                'deleteUrl' => Url::to(['/type/' . $type_id . '/file-delete-type']),        
+            ]
+]); ?>
+    </div>
+        <div class="row">
+            <div class="col-md-12">
                 <?= Html::submitButton('Save',['class'=>'btn btn-success btn-block]']) ?>
             </div>
         </div>
-    </div>
+        
+       
     <?php  ActiveForm::end(); ?>
 </div>

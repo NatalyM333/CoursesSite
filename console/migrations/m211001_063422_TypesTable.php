@@ -15,7 +15,8 @@ class m211001_063422_TypesTable extends Migration
         $this->createTable('{{%types}}', [
             'id' => $this->primaryKey(),
             'name' => $this->string()->notNull(),
-            'description' => $this->text()->defaultValue('')
+            'description' => $this->text()->defaultValue(''),
+            'url_image'=> 'json', 
         ]);
     }
 
