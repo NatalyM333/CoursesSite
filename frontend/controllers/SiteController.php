@@ -18,6 +18,7 @@ use frontend\models\ContactForm;
 use common\models\Type;
 use common\models\Producer;
 use common\models\Lift;
+use common\models\User;
 
 /**
  * Site controller
@@ -162,6 +163,34 @@ class SiteController extends Controller
             'type' => Type::find()->where(['id' => $type_id])->one()->name,
             'producer' => Producer::find()->where(['id' => $producer_id])->one()->name,
             'type_id' => $type_id,
+        ]);
+    }
+    public function actionProfile() 
+    {
+        $user = User::find()->where(['id' => Yii::$app->user->id])->one();
+
+        $model = new SignupForm();
+        $model->username = $user->username;
+        $model->email = $user->email;
+        $model->password = '';
+        
+        if ($model->load(Yii::$app->request->post())) {
+
+            $user->username = $model->username;
+            $user->email = $model->email;
+            $user->password = $model->password;
+            if($user->save()){
+                $model->password = '';
+                Yii::$app->session->setFlash('success', 'Data updated.');
+                return $this->render('profile',[
+                    'model' => $model
+                ]);
+            }
+        }
+
+
+        return $this->render('profile',[
+            'model' => $model
         ]);
     }
     /**

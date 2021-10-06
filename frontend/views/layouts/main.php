@@ -38,11 +38,13 @@ AppAsset::register($this);
         ['label' => 'Головна', 'url' => ['/site/index']],
         ['label' => 'Ліфти', 'url' => ['/site/types']],
         ['label' => 'Зворотній зв\'язок', 'url' => ['/site/contact']],
+       
     ];
     if (Yii::$app->user->isGuest) {
         $menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];
         $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
     } else {
+        $menuItems[] = ['label' => 'Профіль', 'url' => ['/site/profile']];
         $menuItems[] = '<li>'
             . Html::beginForm(['/site/logout'], 'post', ['class' => 'form-inline'])
             . Html::submitButton(
