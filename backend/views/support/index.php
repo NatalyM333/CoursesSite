@@ -3,7 +3,7 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\GridView;
 
-$this->title = 'Lifts';
+$this->title = 'Support';
 $this->params['breadcrumbs'][] = $this->title;
 
 
@@ -15,11 +15,11 @@ $i = 1;
   <!-- Default panel contents -->
   <div class="panel-heading"><h4>Lifts</h4></div>
   <?= Html::a(
-            'Add lift',
-            Url::toRoute('lift/create'),
+            'Add support',
+            Url::toRoute('support/create'),
             [
                 'class' => 'btn btn-success pull-right',
-                'id' => 'lift-create',
+                'id' => 'support-create',
                 'style' => [
                     'margin' => '10px' 
                 ]
@@ -31,22 +31,20 @@ $i = 1;
       <tr>
         <th scope="col">#</th>
         <th scope="col">Id</th>
-        <th scope="col">Type</th>
-        <th scope="col">Producer</th>
+        <th scope="col">Name</th>
         <th></th>
       </tr>
     </thead>
     <tbody>
-      <?php foreach($lifts as $lift) : ?>
+      <?php foreach($support as $s) : ?>
           <tr>
               <th scope="row"><?= $i++; ?></th>
-              <th scope="row"><?= $lift['id']; ?></th>
-              <th scope="row"><?= $types[$lift['type_id']]['name']; ?></th>
-              <th scope="row"><?= $producers[$lift['producer_id']]['name']; ?></th>
+              <th scope="row"><?= $s['id']; ?></th>
+              <th scope="row"><?= $s['name']; ?></th>
               <td> 
-                <?=  Html::a('View', ['view','id' => $lift['id']], ['class' => 'btn btn-success']);  ?>
-                <?=  Html::a('Update', ['update','id' => $lift['id']], ['class' => 'btn btn-info']);  ?>
-                <?=  Html::a('Delete', ['delete','id' => $lift['id']], ['class' => 'btn btn-danger']);  ?>
+                <?=  Html::a('View', ['view','id' => $s['id']], ['class' => 'btn btn-success']);  ?>
+                <?=  Html::a('Update', ['update','id' => $s['id']], ['class' => 'btn btn-info']);  ?>
+                <?=  Html::a('Delete', ['delete','id' => $s['id']], ['class' => 'btn btn-danger']);  ?>
               </td>
           </tr>
       <?php endforeach ?>

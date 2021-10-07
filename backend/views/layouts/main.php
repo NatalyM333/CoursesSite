@@ -54,6 +54,10 @@ AppAsset::register($this);
         'label' => 'Lift',
         'url' => ['/lift/index'],
     ];
+    $menu_support = [
+        'label' => 'Support',
+        'url' => ['/support/index'],
+    ];
     $menu_user=[
         'label' => 'User',
         'url' => ['/user/index'],
@@ -79,6 +83,7 @@ AppAsset::register($this);
             $menuItems[] = $menu_producer;
             $menuItems[] = $menu_type;
             $menuItems[] = $menu_lift;
+            $menuItems[] = $menu_support;
             $menuItems[] = $menu_user;
            
         }

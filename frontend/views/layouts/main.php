@@ -41,6 +41,12 @@ AppAsset::register($this);
         ['label' => 'Зворотній зв\'язок', 'url' => ['/site/contact']],
        
     ];
+    if(Yii::$app->user->can('support')){
+        $menuItems[] = ['label' => 'Технічна підтримка', 'url' => ['/site/support']];
+    }
+    if(Yii::$app->user->can('admin')){
+        $menuItems[] = ['label' => 'Технічна підтримка', 'url' => ['/site/support']];
+    }
     if (Yii::$app->user->isGuest) {
         $menuItems[] = ['label' => 'Реєстрація', 'url' => ['/site/signup']];
         $menuItems[] = ['label' => 'Вхід', 'url' => ['/site/login']];

@@ -193,6 +193,12 @@ class SiteController extends Controller
             'model' => $model
         ]);
     }
+
+    public function actionSupport()
+    {
+        return $this->render('support');
+    }
+
     /**
      * Displays about page.
      *
