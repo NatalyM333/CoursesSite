@@ -88,7 +88,7 @@
                             $imagePath = array_merge($image, $imagePath);
                             $type->url_image = json_encode($imagePath);
                         }
-                        $type->url_image = json_encode($imagePath);
+                       
 
                         if($type->save())
                         {
