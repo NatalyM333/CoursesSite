@@ -8,6 +8,7 @@ class ProducerForm extends Model
 {
     public $name;
     public $description;
+    public $imageFile;
 
     public function rules()
     {
@@ -24,6 +25,20 @@ class ProducerForm extends Model
             'description' => 'Опис',
         ];
     }
-  
+    public function upload()
+    {
+        if($this->validate())
+        {
+            $result = [];
+            foreach ($this->imageFile as $file) {
+                $fileName = md5(microtime() . rand(0, 1000));
+                $imagePath = '../../images/producer/' . $fileName . '.' . $file->extension;
+                $file->saveAs($imagePath);
+                $result = $imagePath;
+            }
+            return $result;
+        }
+        return false;
+    }
 
 }

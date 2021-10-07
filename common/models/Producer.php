@@ -9,6 +9,7 @@ use \yii\db\ActiveRecord;
 * @property int $id
 * @property string $name
 * @property string $description
+* @property string $url_image
 */
 class Producer extends ActiveRecord
 {

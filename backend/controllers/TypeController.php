@@ -9,6 +9,7 @@
     use yii\filters\AccessControl;
     use common\models\Type;
     use backend\models\TypeForm;
+    use common\models\Lift;
    
     class TypeController extends Controller
     {
@@ -125,6 +126,21 @@
         {
             $model = new Type;
             $type = Type::findOne(['id' => $id]);
+            $lifts = Lift::find()->where(['type_id' => $id])->all();
+            foreach ($lifts as $lift) {  
+                $images = json_decode($lift->url_image,true);
+                foreach ($images as $value) {  
+                    unlink($value);
+                }
+        
+                if($lift -> delete())
+                {
+                //Yii::$app->session->setFlash('success', 'Товар видалено з БД ');
+                }
+                else{
+                    Yii::$app->session->setFlash('error', 'Помилка НЕ видалено з БД ');
+                }
+            }
             $images = json_decode($type->url_image,true);
        
             foreach ($images as $value) {  

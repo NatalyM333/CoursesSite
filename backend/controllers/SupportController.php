@@ -160,21 +160,21 @@ class SupportController extends Controller
     public function actionFileDeleteSupport($id){
         
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-        if(isset($_POST['key'])){
-            $file = $_POST['key'];
+        // if(isset($_POST['key'])){
+        //     $file = $_POST['key'];
            
-            unlink($_POST['key']);
-            $support = Support::findOne(['id' => $id]);
-            $files = json_decode($support->url_file,true);
-            $result = [];
-            foreach ($files as $value) {
-                if($file != $value){
-                    $result[] = $value;
-                }
-            }
-            $support->url_file = json_encode($result);
-            $support->save();
-        }
+        //     unlink($_POST['key']);
+        //     $support = Support::findOne(['id' => $id]);
+        //     $files = json_decode($support->url_file,true);
+        //     $result = [];
+        //     foreach ($files as $value) {
+        //         if($file != $value){
+        //             $result[] = $value;
+        //         }
+        //     }
+        //     $support->url_file = json_encode($result);
+        //     $support->save();
+        // }
         return true;
     }
     public function actionView($id){

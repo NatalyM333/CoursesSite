@@ -4,7 +4,8 @@ use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use backend\models\ProducerForm;
-
+use common\models\Lift;
+use common\models\Support;
 use backend\models\Producer;
 use yii\web\UploadedFile;
 use yii\data\ActiveDataProvider;
@@ -41,19 +42,24 @@ class ProducerController extends Controller
     public function actionCreate()
     {
         $model = new ProducerForm;
+        
         if($model->load(Yii::$app->request->post()))
-        {
-            $producer = new Producer;
-            $producer->name = $model->name;
-            $producer->description = $model->description;
-            if($producer->save())
-            {
-           //  Yii::$app->session->setFlash('success', 'Виробника збережено в БД ');
+        {   $model->imageFile = UploadedFile::getInstances($model,'imageFile');
+            if($imagePath=$model->upload())
+           {
+                $producer = new Producer;
+                $producer->name = $model->name;
+                $producer->description = $model->description;
+                $producer->url_image = json_encode($imagePath);
+                if($producer->save())
+                {
+            //  Yii::$app->session->setFlash('success', 'Виробника збережено в БД ');
+                }
+                else{
+                    Yii::$app->session->setFlash('error', 'Помилка НЕ збережено в БД ');
+                }  
+                return  $this->redirect(['producer/index']);
             }
-            else{
-                Yii::$app->session->setFlash('error', 'Помилка НЕ збережено в БД ');
-            }  
-         return  $this->redirect(['producer/index']);
           
         }
         return $this->render('create', [
@@ -69,17 +75,27 @@ class ProducerController extends Controller
         $producer = Producer::findOne(['id' => $id]);
         if($model->load(Yii::$app->request->post()))
         {
-            $producer->name = $model->name;
-            $producer->description = $model->description;
-          
-            if($producer->save())
-            {
-             //Yii::$app->session->setFlash('success', 'Товар збережено в БД ');
+            $model->imageFile = UploadedFile::getInstances($model,'imageFile');
+            $imagePath=$model->upload();
+           if($imagePath !== false)
+           {
+                $producer->name = $model->name;
+                $producer->description = $model->description;
+                if($imagePath)
+                {
+                    $file = json_decode($producer->url_image,true);
+                    unlink($file);
+                    $producer->url_image = json_encode($imagePath);
+                    
+                }
+                if($producer->save())
+                {
+                //Yii::$app->session->setFlash('success', 'Товар збережено в БД ');
+                }
+                else{
+                    Yii::$app->session->setFlash('error', 'Помилка НЕ збережено в БД ');
+                }
             }
-            else{
-                Yii::$app->session->setFlash('error', 'Помилка НЕ збережено в БД ');
-               }
-           
          return  $this->redirect(['producer/index']);
           
         }
@@ -87,8 +103,14 @@ class ProducerController extends Controller
         $model->name = $producer->name;
         $model->description = $producer->description;
 
-        $initialPreview = [];
-        $initialConfig = [];
+        $file= json_decode($producer->url_image,true);
+       
+        
+            $initialPreview[]='../../' . $file;
+          
+            $initialConfig []=[
+                'key' => $file,
+            ];
       
         return $this->render('create', [
             'model' => $model,
@@ -100,8 +122,38 @@ class ProducerController extends Controller
     }
 
     public function actionDelete($id){
-        $model = new ProducerForm;
         $producer = Producer::findOne(['id' => $id]);
+        $lifts = Lift::find()->where(['producer_id' => $id])->all();
+        foreach ($lifts as $lift) {  
+            $images = json_decode($lift->url_image,true);
+            foreach ($images as $value) {  
+                unlink($value);
+            }
+      
+            if($lift -> delete())
+            {
+             //Yii::$app->session->setFlash('success', 'Товар видалено з БД ');
+            }
+            else{
+                Yii::$app->session->setFlash('error', 'Помилка НЕ видалено з БД ');
+            }
+        }
+
+        $supports = Support::find()->where(['producer_id' => $id])->all();
+        foreach ($supports as $support) {  
+            $file = json_decode($support->url_file,true);
+            unlink($file);
+            if($support -> delete())
+            {
+            //Yii::$app->session->setFlash('success', 'Товар видалено з БД ');
+            }
+            else{
+                Yii::$app->session->setFlash('error', 'Помилка НЕ видалено з БД ');
+            }
+        }
+
+        $file = json_decode($producer->url_image,true);
+        unlink($file);
         if($producer -> delete())
             {
              //Yii::$app->session->setFlash('success', 'Виробника видалено з БД ');
@@ -127,8 +179,11 @@ class ProducerController extends Controller
         $model->name = $producer->name;
         $model->description = $producer->description; 
       
-        $initialPreview = [];
-        $initialConfig = [];
+        $file= json_decode($producer->url_image,true);
+        $initialPreview[]='' . $file;
+        $initialConfig []=[
+            'key' => $file,
+        ];
    
         return $this->render('view', [
             'model' => $model,
@@ -137,5 +192,25 @@ class ProducerController extends Controller
             'initialConfig' =>  $initialConfig,
         ]);
 
+    }
+    public function actionFileDeleteProducer($id){
+        
+        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        // if(isset($_POST['key'])){
+        //     $file = $_POST['key'];
+           
+        //     unlink($_POST['key']);
+        //     $producer = Producer::findOne(['id' => $id]);
+        //     $files = json_decode($producer->url_image,true);
+        //     $result = [];
+        //     foreach ($files as $value) {
+        //         if($file != $value){
+        //             $result[] = $value;
+        //         }
+        //     }
+        //     $producer->url_file = json_encode($result);
+        //     $producer->save();
+        // }
+        return true;
     }
 }
