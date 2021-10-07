@@ -89,7 +89,6 @@
                             $type->url_image = json_encode($imagePath);
                         }
                        
-
                         if($type->save())
                         {
                             //Yii::$app->session->setFlash('success', 'Товар збережено в БД ');

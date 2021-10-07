@@ -10,6 +10,7 @@
      * @property string $name
      * @property string $url_file
      * @property string $description
+     * @property int $producer_id
      */
     class Support extends ActiveRecord
     {

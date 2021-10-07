@@ -10,6 +10,12 @@ use yii\widgets\ActiveForm;
 $this->title = 'Створення';
 $this->params['breadcrumbs'][] = ['label' => 'Технічна підтримка', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
+
+$obj = new class{};
+$obj->type = 'pdf';
+$obj->url = '../../../../files/support/7ed9f50d40308a637b8b77e73d4e07c3.pdf';
+$obj->key = 10;
+
 ?>
 
 <div class="panel panel-default">
@@ -32,25 +38,35 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
         <div class="row">
             <div class="col-md-12">
+                
+                <?=$form->field($model, 'producer_id')->widget(Select2::classname(),[
+                    'language' => 'uk-UA',
+                    'data' => $producers,
+                    'options' => ['placeholder' => 'Виберіть ...'],
+                    'pluginOptions' => [
+                        'allowClear' => true
+                    ],
+                ]);?>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
             <?= $form->field($model, 'supportFile')->widget(FileInput::classname(),[
             'name' => 'attachment_49[]',
-            'attribute' => 'assets_file',
-            'id' => 'assets_file',
+            
             'options'=>[
-                'multiple'=>true,
-                'max' => 10,
+                'multiple'=>false,
             ],
             'pluginOptions' => [
                 'initialPreview'=> $initialPreview,
                 'initialPreviewConfig' => $initialConfig,
                 'initialPreviewAsData'=>true,
-                'hideThumbnailContent' => true,
                 'initialPreviewFileType' => 'pdf',
                 'showCaption' => false,
                 'showUpload' => false,
                 'removeClass' => 'btn btn-default pull-right',
                 'browseClass' => 'btn btn-primary pull-right',
-                'overwriteInitial'=>false,
+                'overwriteInitial'=>true,
                 'maxFileSize'=>11000,
                 'deleteUrl' => Url::to(['/support/' . $support_id . '/file-delete-support']),        
             ]

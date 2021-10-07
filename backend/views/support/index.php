@@ -32,6 +32,7 @@ $i = 1;
         <th scope="col">#</th>
         <th scope="col">Id</th>
         <th scope="col">Name</th>
+        <th scope="col">Producer</th>
         <th></th>
       </tr>
     </thead>
@@ -41,6 +42,7 @@ $i = 1;
               <th scope="row"><?= $i++; ?></th>
               <th scope="row"><?= $s['id']; ?></th>
               <th scope="row"><?= $s['name']; ?></th>
+              <th scope="row"><?= $producers[$s['producer_id']]['name']; ?></th>
               <td> 
                 <?=  Html::a('View', ['view','id' => $s['id']], ['class' => 'btn btn-success']);  ?>
                 <?=  Html::a('Update', ['update','id' => $s['id']], ['class' => 'btn btn-info']);  ?>

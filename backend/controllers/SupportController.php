@@ -4,6 +4,7 @@ use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use backend\models\SupportForm;
+use common\models\Producer;
 use common\models\Support;
 use yii\web\UploadedFile;
 use yii\data\ActiveDataProvider;
@@ -29,9 +30,15 @@ class SupportController extends Controller
         ];
     }
     public function actionIndex()
-    {
+    {   
+        $producers = [];
+        $supports = Support::find()->all();
+        foreach($supports as $support){
+            $producers[$support->producer_id] = Producer::find()->where(['id' => $support->producer_id])->one();
+       }
         return $this->render('index',[
-            'support' =>  Support::find()->all(),
+            'support' => $supports,
+            'producers' => $producers,
         ]);
     }
 
@@ -46,6 +53,7 @@ class SupportController extends Controller
             $support = new Support;
             $support->description = $model->description;
             $support->name = $model->name;
+            $support->producer_id = $model->producer_id ;
             $support->url_file = json_encode($supportPath);
             if($support->save())
             {
@@ -58,12 +66,16 @@ class SupportController extends Controller
          return  $this->redirect(['support/index']);
           
         }
-       
+        $providers = Producer::find()->all();
+        foreach ($providers as $provider) {
+            $provider_array[$provider->id] = $provider->name;
+        }
         return $this->render('create', [
             'model' => $model,
             'initialPreview' => [],
             'initialConfig' => [],
             'support_id'=> '',
+            'producers' => $provider_array,
         ]);
     }
     public function actionUpdate($id){
@@ -77,11 +89,13 @@ class SupportController extends Controller
            {
             $support->description = $model->description;
             $support->name = $model->name;
-            if(count($supportPath)>0)
+            $support->producer_id = $model->producer_id ;
+            if($supportPath)
             {
-                $support = json_decode($support->url_file,true);
-                $supportPath = array_merge($support, $supportPath);
+                $file = json_decode($support->url_file,true);
+                unlink($file);
                 $support->url_file = json_encode($supportPath);
+                
             }
             
             if($support->save())
@@ -98,23 +112,28 @@ class SupportController extends Controller
 
         $model->description = $support->description;
         $model->name = $support->name;
-        
-        $files= json_decode($support->url_file,true);
+        $model->poducer_id = $support->poducer_id;
+        $providers = Producer::find()->all();
+        foreach ($providers as $provider) {
+            $provider_array[$provider->id] = $provider->name;
+        }
+        $file= json_decode($support->url_file,true);
         $initialPreview = [];
         $initialConfig = [];
-        foreach ($files as $file) {
+        
             $initialPreview[]='../../' . $file;
           
             $initialConfig []=[
                 'key' => $file,
             ];
-        }
+        
 
         return $this->render('create', [
             'model' => $model,
             'initialPreview' => $initialPreview,
             'support_id'=> $support->id,
             'initialConfig' =>  $initialConfig,
+            'producers' => $provider_array,
         ]);
 
     }
@@ -122,11 +141,11 @@ class SupportController extends Controller
     public function actionDelete($id){
         $model = new SupportForm;
         $support = Support::findOne(['id' => $id]);
-        $supports = json_decode($support->url_file,true);
+        $file = json_decode($support->url_file,true);
         $result = [];
-        foreach ($supports as $value) {  
-               unlink($value);
-        }
+         
+               unlink($file);
+        
 
         if($support -> delete())
             {
@@ -161,46 +180,23 @@ class SupportController extends Controller
     public function actionView($id){
         $model = new SupportForm;
         $support = Support::findOne(['id' => $id]);
-        if($model->load(Yii::$app->request->post()))
-        {
-            $model->supportFile = UploadedFile::getInstances($model,'supportFile');
-            $supportPath=$model->upload();
-           if($supportPath !== false)
-           {    
-            $support->description = $model->description;
-            $support->name = $model->name ;
-            if($supportPath)
-            {
-                $support = json_decode($support->url_file,true);
-                $supportPath = array_merge($support, $supportPath);
-                $support->url_file = json_encode($supportPath);
-
-            }
-            $support->url_file = json_encode($supportPath);
-            
-           }
-         return  $this->redirect(['support/index']);
-          
-        }
+       
 
         $model->description = $support->description;
         $model->name = $support->name;
-        $files= json_decode($support->url_file,true);
-        $initialPreview = [];
-        $initialConfig = [];
-        foreach ($files as $file) {
-            $initialPreview[]='' . $file;
-          
-            $initialConfig []=[
-                'key' => $file,
-            ];
-        }
-
+        $model->producer_id = $support->producer_id;
+        $file= json_decode($support->url_file,true);
+        $initialPreview[]='' . $file;
+        $initialConfig []=[
+            'key' => $file,
+        ];
+        
         return $this->render('view', [
             'model' => $model,
             'initialPreview' => $initialPreview,
             'support_id'=> $support->id,
             'initialConfig' =>  $initialConfig,
+            'producer' => Producer::find()->where(['id' => $support->producer_id])->one()->name,
         ]);
 
     }

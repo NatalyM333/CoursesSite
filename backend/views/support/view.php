@@ -20,14 +20,20 @@ $this->params['breadcrumbs'][] = $this->title;
     $form=ActiveForm::begin(['id' => 'support-create']);
     ?>
      <div class="panel-body">
-        <div class="row">
-            <div class="col-md-12">
-            <p>Назва</p>
+        <div class="row ">
+            <div class="col-md-12 " style="margin:5px;">
+            <p >Назва</p>
                 <?=$model->name?>
             </div>
         </div>
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-6">
+            <p>Виробник</p>
+                <?=$producer?>
+            </div>
+        </div>
+        <div class="row ">
+            <div class="col-md-12" style="margin:5px;">
             <p>Опис</p>
                 <?=$model->description?>
             </div>
@@ -35,18 +41,12 @@ $this->params['breadcrumbs'][] = $this->title;
         
        
         <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-md-12" style="margin:5px;">
                     <?php
                         foreach ($initialPreview as $key ) {  
                             
-                    ?>
-                    <div>
-                    <a href ='<?=Url::to(["file", 'filename' => $key])?>')>view</div>
-                    <a href ="../../files/support/dae66e01b9680b5b16118ce73a6988f3.pdf">kkkk</a>
-                    <object data="../../files/support/dae66e01b9680b5b16118ce73a6988f3.pdf" type="application/x-pdf" title="SamplePdf" width="500" height="720">
-    <a href="../../files/support/dae66e01b9680b5b16118ce73a6988f3.pdf">shree</a> 
-</object>
-                    </div>
+                    ?>  
+                    <div><a href ='<?=Url::to(["file", 'filename' => $key])?>')>view</div>
                      <?php
                         }
                     ?>

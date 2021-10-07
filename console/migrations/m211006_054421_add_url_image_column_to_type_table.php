@@ -20,6 +20,6 @@ class m211006_054421_add_url_image_column_to_type_table extends Migration
      */
     public function safeDown()
     {
-        $this->dropColumn('{{%type}}', 'url_image');
+       // $this->dropColumn('{{%type}}', 'url_image');
     }
 }
