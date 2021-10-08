@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use kartik\select2\Select2;
 use kartik\widgets\FileInput;
-
+use kartik\editors\Summernote;
 use yii\widgets\ActiveForm;
 
 $this->title = 'Створення ліфта';
@@ -20,11 +20,6 @@ $this->params['breadcrumbs'][] = $this->title;
     $form=ActiveForm::begin(['id' => 'lift-create']);
     ?>
      <div class="panel-body">
-        <div class="row">
-            <div class="col-md-12">
-                <?=$form->field($model, 'description')->textarea(['row' => '3'])->label('Опис');?>
-            </div>
-        </div>
         <div class="row">
             <div class="col-md-12">
                 
@@ -51,6 +46,27 @@ $this->params['breadcrumbs'][] = $this->title;
                 ]);?>
             </div>
         </div>
+
+        <div class="row">
+            <div class="col-md-12">
+            <?= $form->field($model, 'description')->widget(Summernote::classname(),[
+            'useKrajeePresets' => true,
+            'pluginOptions' => [
+                'height' => 300,
+                'dialogsFade' => true,
+                'toolbar' => [
+                    ['style1', ['style']],
+                    ['style2', ['bold', 'italic', 'underline', 'strikethrough', 'superscript', 'subscript']],
+                    ['font', ['fontname', 'fontsize', 'color', 'clear']],
+                    ['para', ['ul', 'ol', 'paragraph', 'height']],
+                    ['insert', ['link', 'picture', 'video', 'table', 'hr']],
+                ],
+                'fontSizes' => ['8', '9', '10', '11', '12', '13', '14', '16', '18', '20', '24', '36', '48'],
+                
+            ]
+]); ?>
+</div>
+
         <div class="row">
             <div class="col-md-12">
             <?= $form->field($model, 'imageFile')->widget(FileInput::classname(),[
@@ -72,7 +88,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 'deleteUrl' => Url::to(['/lift/' . $lift_id . '/file-delete-lift']),        
             ]
 ]); ?>
-
 </div>
         </div>
         <div class="row">
