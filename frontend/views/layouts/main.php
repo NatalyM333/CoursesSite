@@ -42,10 +42,10 @@ AppAsset::register($this);
        
     ];
     if(Yii::$app->user->can('support')){
-        $menuItems[] = ['label' => 'Технічна підтримка', 'url' => ['/site/support']];
+        $menuItems[] = ['label' => 'Технічна підтримка', 'url' => ['/site/producers-support']];
     }
     if(Yii::$app->user->can('admin')){
-        $menuItems[] = ['label' => 'Технічна підтримка', 'url' => ['/site/support']];
+        $menuItems[] = ['label' => 'Технічна підтримка', 'url' => ['/site/producers-support']];
     }
     if (Yii::$app->user->isGuest) {
         $menuItems[] = ['label' => 'Реєстрація', 'url' => ['/site/signup']];
@@ -55,7 +55,7 @@ AppAsset::register($this);
         $menuItems[] = '<li>'
             . Html::beginForm(['/site/logout'], 'post', ['class' => 'form-inline'])
             . Html::submitButton(
-                'Logout (' . Yii::$app->user->identity->username . ')',
+                'Вихід (' . Yii::$app->user->identity->username . ')',
                 ['class' => 'btn btn-link logout']
             )
             . Html::endForm()

@@ -27,10 +27,10 @@ $this->params['breadcrumbs'][] = ['label' => 'Види'];
 ?>
   <div class="col mb-4">
     <div class="card">
-      <img src="<?= $images[0]?>" class="card-img-top w-100" alt="...">
+      <img src="<?= $images?>" class="card-img-top w-100" alt="...">
       <div class="card-body">
         <h5 class="card-title"><?=$value->name?></h5>
-        <p class="card-text"><?=$value->description?>This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+        <p class="card-text"><?=$value->description?></p>
         <a href="<?= Url::to(["producers", 'id' => $value->id])?>" class="btn btn-dark">Перейти</a>
       </div>
     </div>

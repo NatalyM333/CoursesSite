@@ -4,17 +4,19 @@ $this->params['breadcrumbs'][] = ['label' => 'Види', 'url' => ['types']];
 $this->params['breadcrumbs'][] = ['label' => $type, 'url' => Url::to(["producers", 'id' => $type_id])];
 $this->params['breadcrumbs'][] = ['label' => $producer];
 ?>
-<div id="carouselExampleCaptions" class="carousel slide mx-auto" data-ride="carousel" style="width:40%; height:auto;">
-  <ol class="carousel-indicators">
+<div id="carouselExampleCaptions" data-interval="false" class="carousel  slide mx-auto" data-ride="carousel" style="width:60%; height:auto;">
+<ol class="carousel-indicators">
     <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
     <?php
-    for($i=1; $i < count($lifts); $i++){
+    for($i=1; $i <= count($lifts); $i++){
     ?>
-    <li data-target="#carouselExampleCaptions" data-slide-to="<?= $i ?>"></li>
+    <li data-target="#carouselExampleCaptions" data-slide-to="<?=$i?>"></li>
     <?php
     }
     ?>
+    <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
   </ol>
+
   <div class="carousel-inner">
       <?php
       $i=0;

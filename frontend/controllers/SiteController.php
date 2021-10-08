@@ -19,6 +19,7 @@ use common\models\Type;
 use common\models\Producer;
 use common\models\Lift;
 use common\models\User;
+use common\models\Support;
 
 /**
  * Site controller
@@ -145,6 +146,12 @@ class SiteController extends Controller
             'types' =>Type::find()->all()
         ]);
     }
+    public function actionProducersSupport()
+    {
+        return $this->render('producerssupport',[
+            'producers' =>Producer::find()->all()
+        ]);
+    }
     public function actionProducers($id)
     {
         
@@ -194,11 +201,21 @@ class SiteController extends Controller
         ]);
     }
 
-    public function actionSupport()
+    public function actionSupport($producer_id)
     {
-        return $this->render('support');
+        return $this->render('support',[
+            'support' => Support::find()->where(['producer_id' => $producer_id])->all(),
+            'producer' => Producer::find()->where(['id' => $producer_id])->one()->name,
+        ]
+        );
     }
-
+    public function actionFile($filename)
+    {
+        $filename = json_decode($filename,true);
+        return \Yii::$app->response->sendFile($filename); 
+        //return Yii::$app->response->sendFile($filename,'', ['inline'=>true]);
+       
+    }
     /**
      * Displays about page.
      *

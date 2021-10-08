@@ -112,7 +112,7 @@ class SupportController extends Controller
 
         $model->description = $support->description;
         $model->name = $support->name;
-        $model->poducer_id = $support->poducer_id;
+        $model->producer_id = $support->producer_id;
         $providers = Producer::find()->all();
         foreach ($providers as $provider) {
             $provider_array[$provider->id] = $provider->name;
