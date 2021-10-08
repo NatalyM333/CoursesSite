@@ -35,7 +35,7 @@ class TypeForm extends Model
                 $fileName = md5(microtime() . rand(0, 1000));
                 $imagePath = '../../images/type/' . $fileName . '.' . $file->extension;
                 $file->saveAs($imagePath);
-                $result[] = $imagePath;
+                $result = $imagePath;
             }
             return $result;
         }

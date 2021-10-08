@@ -86,7 +86,7 @@
                         if($imagePath)
                         {
                             $image = json_decode($type->url_image,true);
-                            $imagePath = array_merge($image, $imagePath);
+                            unlink($image);
                             $type->url_image = json_encode($imagePath);
                         }
                        
@@ -106,14 +106,14 @@
             $model->description = $type->description;  
             $initialPreview = [];
             $initialConfig = [];
-            $images= json_decode($type->url_image,true);
-            foreach ($images as $image) {
+            $image= json_decode($type->url_image,true);
+           
                 $initialPreview[]='../../' . $image;
               
                 $initialConfig []=[
                     'key' => $image,
                 ];
-            }
+            
             return $this->render('create', [
                 'model' => $model,        
                 'initialPreview' => $initialPreview,
@@ -141,12 +141,8 @@
                     Yii::$app->session->setFlash('error', 'Помилка НЕ видалено з БД ');
                 }
             }
-            $images = json_decode($type->url_image,true);
-       
-            foreach ($images as $value) {  
-                unlink($value);
-            }
-      
+            $image = json_decode($type->url_image,true);
+            unlink($image);
             if($type -> delete())
             {
             // Yii::$app->session->setFlash('success', ' видалено з БД ');
@@ -160,21 +156,21 @@
         public function actionFileDeleteType($id){
         
             Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-            if(isset($_POST['key'])){
-                $image = $_POST['key'];
+            // if(isset($_POST['key'])){
+            //     $image = $_POST['key'];
                
-                unlink($_POST['key']);
-                $type = Type::findOne(['id' => $id]);
-                $images = json_decode($type->url_image,true);
-                $result = [];
-                foreach ($images as $value) {
-                    if($image != $value){
-                        $result[] = $value;
-                    }
-                }
-                $type->url_image = json_encode($result);
-                $type->save();
-            }
+            //     unlink($_POST['key']);
+            //     $type = Type::findOne(['id' => $id]);
+            //     $images = json_decode($type->url_image,true);
+            //     $result = [];
+            //     foreach ($images as $value) {
+            //         if($image != $value){
+            //             $result[] = $value;
+            //         }
+            //     }
+            //     $type->url_image = json_encode($result);
+            //     $type->save();
+            // }
             return true;
         }
     }
