@@ -9,7 +9,7 @@ use yii\bootstrap4\Breadcrumbs;
 use yii\bootstrap4\Html;
 use yii\bootstrap4\Nav;
 use yii\bootstrap4\NavBar;
-
+//Yii::$app->language = 'uk-UA';
 AppAsset::register($this);
 ?>
 <?php $this->beginPage() ?>

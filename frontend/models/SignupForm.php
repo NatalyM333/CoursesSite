@@ -23,17 +23,17 @@ class SignupForm extends Model
     {
         return [
             ['username', 'trim'],
-            ['username', 'required'],
-            ['username', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This username has already been taken.'],
+            ['username', 'required','message' => 'Поле не може бути порожнє'],
+            ['username', 'unique', 'targetClass' => '\common\models\User', 'message' => 'Користувач існує.'],
             ['username', 'string', 'min' => 2, 'max' => 255],
 
             ['email', 'trim'],
-            ['email', 'required'],
-            ['email', 'email'],
+            ['email', 'required','message' => 'Поле не може бути порожнє'],
+            ['email', 'email','message' => 'Некоректна електронна адреса'],
             ['email', 'string', 'max' => 255],
-            ['email', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This email address has already been taken.'],
+            ['email', 'unique', 'targetClass' => '\common\models\User', 'message' => 'Користувач з такою електронною адресою вже зареєстрований.'],
 
-            ['password', 'required'],
+            ['password', 'required','message' => 'Поле не може бути порожнє'],
             ['password', 'string', 'min' => Yii::$app->params['user.passwordMinLength']],
         ];
     }

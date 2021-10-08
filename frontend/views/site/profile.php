@@ -5,7 +5,7 @@
     use kartik\widgets\FileInput;
     use yii\helpers\Url;
     
-    $this->title = 'Profile';
+    $this->title = 'Профіль';
 
 ?>
 
@@ -17,24 +17,24 @@
         <div class="panel-body">
             <div class="row">
                 <div class="col-md-12">
-                    <?= $form->field($model, 'username')->textInput(); ?>
+                    <?= $form->field($model, 'username')->textInput()->label('Ім\'я користувача'); ?>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <?= $form->field($model, 'email')->textInput(); ?>
+                    <?= $form->field($model, 'email')->textInput()->label('Електронна пошта'); ?>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <?= $form->field($model, 'password')->passwordInput(); ?>
+                    <?= $form->field($model, 'password')->passwordInput()->label('Пароль'); ?>
                 </div>
             </div>
         
         
             <div class="row">
                 <div class="col-md-12">
-                    <?= Html::submitButton('OK', ['class' => 'btn btn-success btn-block m-2']); ?>
+                    <?= Html::submitButton('Підтвердити', ['class' => 'btn btn-success btn-block m-2']); ?>
                 </div>
             </div>
         </div>
