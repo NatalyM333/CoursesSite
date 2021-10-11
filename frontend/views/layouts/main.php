@@ -11,6 +11,7 @@ use yii\bootstrap4\Nav;
 use yii\bootstrap4\NavBar;
 //Yii::$app->language = 'uk-UA';
 AppAsset::register($this);
+
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -28,8 +29,8 @@ AppAsset::register($this);
 <header>
     <?php
     NavBar::begin([
-       // 'brandLabel' => Html::img('../../images/type/70d3c84a17fa5043d773af4f820b833c.jpg', ['alt' => Yii::$app->name]) . 'Монітор-Україна',
-        'brandLabel' => 'Монітор-Україна',
+        'brandLabel' => Html::img('../../images/logo/logo.jpg', ['alt'=>'Монітор-Україна','width'=>"50" ,'height'=>"50",]). ' Монітор-Україна',
+        //'brandLabel' => 'Монітор-Україна',
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
             'class' => 'navbar navbar-expand-md navbar-dark bg-dark fixed-top',
@@ -83,10 +84,26 @@ AppAsset::register($this);
     </div>
 </main>
 
-<footer class="footer mt-auto py-3 text-muted">
+<footer class="footer mt-auto py-3 text-muted" style="height: 120px;">
     <div class="container">
-        <p class="float-left">&copy; <?= Html::encode(Yii::$app->name) ?> <?= date('Y') ?></p>
-        <p class="float-right"><?= Yii::powered() ?></p>
+    <div class="container">
+  <div class="row align-items-start">
+    <div class="col">
+    ТзОВ “Монітор-Україна”<br>
+Юридична адреса: 79021 м.Львів, вул. Кульпарківська,130б/22<br>
+Фактична адреса : 79020 м.Львів, вул. П.Панча,5
+    </div>
+    <div class="col">
+    ЄДРПОУ 31442776<br>
+ІПН 314427731030
+    </div>
+    <div class="col">
+    Аварійна служба : +380676794844<br>
+Технічні питання : +380676738389<br>
+Фінансові  питання:+380673148712
+    </div>
+  </div>
+        
     </div>
 </footer>
 
