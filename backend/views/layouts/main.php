@@ -12,6 +12,17 @@ use common\widgets\Alert;
 
 AppAsset::register($this);
 ?>
+<style>
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: red;
+ 
+  text-align: center;
+}
+</style>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
 <html lang="<?= Yii::$app->language ?>">
@@ -31,7 +42,7 @@ AppAsset::register($this);
 <div class="wrap">
     <?php
     NavBar::begin([
-        'brandLabel' => Yii::$app->name,
+        'brandLabel' =>  ' Монітор-Україна',
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
             'class' => 'navbar-inverse navbar-fixed-top',
@@ -112,7 +123,9 @@ AppAsset::register($this);
 
 <footer class="footer">
     <div class="container">
-      
+        <p class="pull-left" style="margin-top:20px" >&copy; ТзОВ «Монітор-Україна» <?= date('Y') ?></p>
+
+        <p class="pull-right"></p>
     </div>
 </footer>
 
