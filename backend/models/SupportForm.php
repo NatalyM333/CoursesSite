@@ -14,7 +14,7 @@ class SupportForm extends Model
     {
         return [
             [['name','description'], 'string', 'message' => 'Invalid field type'],
-            [['name','producer_id'], 'required', 'message' => 'The value is required'],
+            [['name','producer_id','supportFile'], 'required', 'message' => 'The value is required'],
         //   [['supportFile'], 'file', 'skipOnEmpty' => true, 'extensions' => 'pdf', 'maxFiles' => 10]
         ];
         

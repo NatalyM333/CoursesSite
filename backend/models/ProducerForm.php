@@ -15,7 +15,7 @@ class ProducerForm extends Model
         return[
             [['name','description',], 'string', 'message' => 'не вірний тип поля'],
             
-            [['name'], 'required', 'message' => 'значення обов\'язкове'],
+            [['name','imageFile'], 'required', 'message' => 'значення обов\'язкове'],
         ];     
     }
     public function attributeLabels()

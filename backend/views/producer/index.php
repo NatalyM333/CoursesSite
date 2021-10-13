@@ -8,8 +8,9 @@ $this->params['breadcrumbs'][] = $this->title;
 
 $i = 1;
 ?>
-<div class="row">
-    
+<div class="panel panel-default">
+  <div class="panel-heading"><h4>Producers</h4></div>
+
     <div class="col-md-12">
         <?= Html::a(
             'Додати виробника',
@@ -20,7 +21,7 @@ $i = 1;
             ]
         );?>
     </div>
-    
+  
     <table class="table" id="producers">
     <thead style="background-color: #22262A; color: white;">
       <tr>
@@ -44,5 +45,5 @@ $i = 1;
       <?php endforeach ?>
     </tbody>
   </table>
-   
+  
 </div>

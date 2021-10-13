@@ -12,7 +12,7 @@ $i = 1;
 ?>
 
 <div class="panel panel-default">
-  <!-- Default panel contents -->
+  
   <div class="panel-heading"><h4>Lifts</h4></div>
   <?= Html::a(
             'Add lift',
