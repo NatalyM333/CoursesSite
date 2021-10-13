@@ -43,7 +43,13 @@ class SupportController extends Controller
     }
 
     public function actionCreate()
-    {
+    { 
+        $providers = Producer::find()->all();
+        if(count($providers) == 0)
+        {
+            Yii::$app->session->setFlash('error', 'Немає виробників ліфтів');
+            return  $this->redirect(['lift/index']);
+        }
         $model = new SupportForm;
         if($model->load(Yii::$app->request->post()))
         {
@@ -66,7 +72,7 @@ class SupportController extends Controller
          return  $this->redirect(['support/index']);
           
         }
-        $providers = Producer::find()->all();
+        
         foreach ($providers as $provider) {
             $provider_array[$provider->id] = $provider->name;
         }

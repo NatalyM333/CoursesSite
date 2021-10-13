@@ -52,6 +52,18 @@ class LiftController extends Controller
 
     public function actionCreate()
     {
+        $types = Type::find()->all();
+        $providers = Producer::find()->all();
+        if(count($types) == 0)
+        {
+            Yii::$app->session->setFlash('error', 'Немає видів ліфтів');
+            return  $this->redirect(['lift/index']);
+        }
+        if(count($providers) == 0)
+        {
+            Yii::$app->session->setFlash('error', 'Немає виробників ліфтів');
+            return  $this->redirect(['lift/index']);
+        }
         $model = new LiftForm;
         if($model->load(Yii::$app->request->post()))
         {
@@ -74,11 +86,11 @@ class LiftController extends Controller
          return  $this->redirect(['lift/index']);
           
         }
-        $types = Type::find()->all();
+        
         foreach ($types as $type) {
             $type_array[$type->id] = $type->name;
         }
-        $providers = Producer::find()->all();
+       
         foreach ($providers as $provider) {
             $provider_array[$provider->id] = $provider->name;
         }
