@@ -17,8 +17,8 @@ class LiftForm extends Model
             [['description',], 'string', 'message' => 'не правильний тип поля'],
           
            
-            [['type_id','producer_id','imageFile'], 'required', 'message' => 'значення обов\'язкове'],
-            [['imageFile'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg', 'maxFiles' => 10],
+            [['type_id','producer_id'], 'required', 'message' => 'значення обов\'язкове'],
+            [['imageFile'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg', 'maxFiles' => 100],
         ];     
     }
     public function attributeLabels()

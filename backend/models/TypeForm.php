@@ -13,7 +13,7 @@ class TypeForm extends Model
     {
         return [
             [['name','description'], 'string', 'message' => 'Invalid field type'],
-            [['name','imageFile'], 'required', 'message' => 'The value is required'],
+            [['name',], 'required', 'message' => 'The value is required'],
             //[['imageFile'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg', 'maxFiles' => 1]
         ];
         

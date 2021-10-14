@@ -70,10 +70,9 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="row">
             <div class="col-md-12">
             <?= $form->field($model, 'imageFile')->widget(FileInput::classname(),[
-            'name' => 'attachment_49[]',
+            'name' => 'input[]',
             'options'=>[
                 'multiple'=>true,
-                'max' => 10,
             ],
             'pluginOptions' => [
                 'initialPreview'=> $initialPreview,
@@ -83,10 +82,12 @@ $this->params['breadcrumbs'][] = $this->title;
                 'showUpload' => false,
                 'removeClass' => 'btn btn-default pull-right',
                 'browseClass' => 'btn btn-primary pull-right',
-                'overwriteInitial'=>true,
-                'maxFileSize'=>2800,
-                'deleteUrl' => Url::to(['/lift/' . $lift_id . '/file-delete-lift']),        
-            ]
+                
+                'maxFileSize'=>10800,
+                'deleteUrl' => Url::to(['/lift/' . $lift_id . '/file-delete-lift']), 
+               
+            ],
+            
 ]); ?>
 </div>
         </div>
@@ -100,3 +101,37 @@ $this->params['breadcrumbs'][] = $this->title;
         ActiveForm::end();
     ?>
 </div>
+<?php
+        echo FileInput::widget([
+            'name' => 'files[]',
+            'options' => ['multiple' => true, 'id' => 'unique-id-1'],
+            'pluginOptions' => ['allowedFileExtensions' => ['jpg'],
+                'previewFileType' => 'image', 'showUpload' => false, 'showRemove' => false, 'initialPreviewAsData' => true, 'overwriteInitial' => true,
+                'initialPreview'=> $initialPreview,
+                'initialPreviewConfig' => $initialConfig,
+                "uploadUrl" => Url::to(['lift/upload']),
+                'deleteUrl' => Url::to(['/lift/' . $lift_id . '/file-delete-lift']), 
+                'removeClass' => 'btn btn-default pull-right',
+                'msgUploadBegin' => Yii::t('app', 'Please wait, system is uploading the files'),
+                'msgUploadThreshold' => Yii::t('app', 'Please wait, system is uploading the files'),
+                'msgUploadEnd' => Yii::t('app', 'Done'),
+                'dropZoneClickTitle'=>'',
+                "uploadAsync" => false,
+                "browseOnZoneClick"=>true,
+                'fileActionSettings' => [
+                    'showZoom' => true,
+                    'showRemove' => true,
+                    'showUpload' => false,
+                ],
+                'maxFileCount' => 20, 'maxFileSize' => 10000,
+            ],
+            'pluginEvents' => [
+                'filebatchselected' => 'function() {
+                 $(this).fileinput("upload");
+                 }',
+
+
+
+            ],
+        ]);
+        ?>

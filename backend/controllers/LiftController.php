@@ -10,6 +10,7 @@ use common\models\Lift;
 use yii\web\UploadedFile;
 use yii\data\ActiveDataProvider;
 use yii\db\Query;
+use yii\web\Response;
 
 class LiftController extends Controller
 {
@@ -190,9 +191,11 @@ class LiftController extends Controller
     public function actionFileDeleteLift($id){
         
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        var_dump("1");
         if(isset($_POST['key'])){
             $image = $_POST['key'];
-           
+            var_dump("2");
+            var_dump($_POST['key']);
             unlink($_POST['key']);
             $lift = Lift::findOne(['id' => $id]);
             $images = json_decode($lift->url_image,true);
@@ -260,4 +263,49 @@ class LiftController extends Controller
         ]);
 
     }
+    public function actionUpload()
+    {
+        if (isset($_POST)) {
+            $files= LiftController::SaveTempAttachments($_FILES);
+            $result = ['files'=>$files];
+            Yii::$app->response->format = trim(Response::FORMAT_JSON);
+            return $result;
+        }
+
+    }
+    public static function SaveTempAttachments($attachments)
+    {
+        $files[]='';
+        $allwoedFiles=['jpg'];
+    
+        if (!empty($attachments)) {
+            if (count($attachments['files']['name']) > 0) {
+                //Loop through each file
+                for ($i = 0; $i < count($attachments['files']['name']); $i++) {
+                    //Get the temp file path
+                    $tmpFilePath = $attachments['files']['tmp_name'][$i];
+    
+                    //Make sure we have a filepath
+                    if ($tmpFilePath != "") {
+                        //save the filename
+                        $shortname = $attachments['files']['name'][$i];
+                        $size = $attachments['files']['size'][$i];
+                        $ext = substr(strrchr($shortname, '.'), 1);
+                        if(in_array($ext,$allwoedFiles)){
+                            //save the url and the file
+                            $newFileName = Yii::$app->security->generateRandomString(40) . "." . $ext;
+                            //Upload the file into the temp dir
+                            if (move_uploaded_file($tmpFilePath,  '../../images/lift/' . $newFileName)) {
+                                $files[] =['fileName'=>$newFileName,'type'=>$ext,'size'=>(($size/1000)),'originalName'=>$shortname];
+                            }
+    
+                        }
+                    }
+                }
+            }
+    
+        }
+        return $files;
+    }
+   
 }

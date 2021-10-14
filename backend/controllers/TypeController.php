@@ -56,17 +56,30 @@
                     else { 
                         Yii::$app->session->setFlash('error', 'Error! Type NOT saved into DB ');
                     }
+                    return  $this->redirect(['index']);
+                }else{
+                    $model->imageFile='';
+                    return $this->render('create', [
+                        'model' => $model,    
+                        'initialPreview' => [],
+                        'initialConfig' => [],
+                        'type_id'=> '',
+                        'msg'=>'обов\'язкове поле',
+                        'dangerStyle' =>'border: 1px solid red; border-radius: 10px;',
+                    ]);
                 }
-                else return  $this->redirect(['user/index']);
-                return  $this->redirect(['index']);
+               
+               
             
             }
         
             return $this->render('create', [
-                'model' => $model,    
+                'model' => $model, 
+                'msg'=>'',   
                 'initialPreview' => [],
                 'initialConfig' => [],
                 'type_id'=> '',
+                'dangerStyle' =>'',
             ]);
         }
 
@@ -116,6 +129,8 @@
             
             return $this->render('create', [
                 'model' => $model,        
+                'msg'=>'',
+                'dangerStyle' =>'',
                 'initialPreview' => $initialPreview,
                 'type_id'=> $type->id,
                 'initialConfig' =>  $initialConfig,
