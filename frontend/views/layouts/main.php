@@ -84,7 +84,7 @@ AppAsset::register($this);
     </div>
 </main>
 
-<footer class="footer mt-auto py-3 text-muted" style="height: 120px;">
+<footer class="footer mt-auto py-3 text-muted" style="height: fit-content;">
     <div class="container">
     <div class="container">
   <div class="row align-items-start">

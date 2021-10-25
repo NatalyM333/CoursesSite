@@ -59,12 +59,23 @@ class ProducerController extends Controller
                     Yii::$app->session->setFlash('error', 'Помилка НЕ збережено в БД ');
                 }  
                 return  $this->redirect(['producer/index']);
+            }else{
+                $model->imageFile='';
+                return $this->render('create', [
+                    'model' => $model,    
+                    'initialPreview' => [],
+                    'initialConfig' => [],
+                    'producer_id'=> '',
+                    'msg'=>'обов\'язкове поле',
+                    'dangerStyle' =>'border: 1px solid red; border-radius: 10px;',
+                ]);
             }
           
         }
         return $this->render('create', [
             'model' => $model,
-           
+            'msg'=>'',
+            'dangerStyle' =>'',
             'initialPreview' => [],
             'initialConfig' => [],
             'producer_id'=> '',
@@ -117,6 +128,8 @@ class ProducerController extends Controller
             'initialPreview' => $initialPreview,
             'producer_id'=> $producer->id,
             'initialConfig' =>  $initialConfig,
+            'msg'=>'',
+            'dangerStyle' =>''
         ]);
 
     }

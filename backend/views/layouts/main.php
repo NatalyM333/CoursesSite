@@ -110,18 +110,19 @@ AppAsset::register($this);
     NavBar::end();
     ?>
 
-    <div class="container">
+    <div class="container" style = "margin-bottom:100px;">
         <?= Breadcrumbs::widget([ 'homeLink' => [
             'label' => 'Головна',
          ],
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
         ]) ?>
         <?= Alert::widget() ?>
+        
         <?= $content ?>
     </div>
 </div>
 
-<footer class="footer">
+<footer class="footer ">
     <div class="container">
         <p class="pull-left" style="margin-top:20px" >&copy; ТзОВ «Монітор-Україна» <?= date('Y') ?></p>
 

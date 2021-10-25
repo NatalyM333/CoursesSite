@@ -80,7 +80,7 @@ class UserController extends Controller
         $user = User::findOne(['id' => $id]);
         if($user -> delete())
             {
-             Yii::$app->session->setFlash('success', ' видалено з БД ');
+             //Yii::$app->session->setFlash('success', ' видалено з БД ');
             }
             else{
                 Yii::$app->session->setFlash('error', 'Помилка НЕ видалено з БД ');

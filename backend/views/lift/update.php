@@ -7,7 +7,7 @@ use kartik\widgets\FileInput;
 use kartik\editors\Summernote;
 use yii\widgets\ActiveForm;
 
-$this->title = 'Створення ліфта';
+$this->title = 'Зміна ліфта';
 $this->params['breadcrumbs'][] = ['label' => 'Ліфт', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -17,7 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <h4><?=$this->title;?></h4>
     </div>
     <?php
-    $form=ActiveForm::begin(['id' => 'lift-create']);
+    $form=ActiveForm::begin(['id' => 'lift-update']);
     ?>
      <div class="panel-body">
         <div class="row">
@@ -67,29 +67,6 @@ $this->params['breadcrumbs'][] = $this->title;
 ]); ?>
 </div>
         </div>
-    
-        <div class="row">
-            <div class="col-md-12" style="<?=$dangerStyle?> margin-bottom:5px;">
-            <?= $form->field($model, 'imageFile')->widget(FileInput::classname(),[
-            'name' => 'attachment_49[]',
-            'options'=>[
-                'multiple'=>false,
-            ],
-            'pluginOptions' => [
-                'initialPreview'=> $initialPreview,
-                'initialPreviewConfig' => $initialConfig,
-                'initialPreviewAsData'=>true,
-                'showCaption' => false,
-                'showUpload' => false,
-                'removeClass' => 'btn btn-default pull-right',
-                'browseClass' => 'btn btn-primary pull-right',
-                'overwriteInitial'=>true,
-                'maxFileSize'=>2800,
-                'deleteUrl' => Url::to(['/lift/' . $lift_id . '/file-delete-lift']),        
-            ]
-]); ?>
-<p class="text-danger"><?=$msg?></p>
-</div>
         <div class="row">
             <div class="col-md-12">
                 <?=Html::submitButton('Зберегти',['class'=>'btn btn-success btn-block]'])?>
@@ -100,6 +77,36 @@ $this->params['breadcrumbs'][] = $this->title;
         ActiveForm::end();
     ?>
 </div>
+<div >
+<?php
+        echo FileInput::widget([
+            'name' => 'files[]',
+            'options' => ['multiple' => true, 'id' => 'unique-id-1'],
+            'pluginOptions' => ['allowedFileExtensions' => ['jpg'],
+                'previewFileType' => 'image', 'showUpload' => true, 'showRemove' => false, 'initialPreviewAsData' => true, 'overwriteInitial' => false,
+                'initialPreview'=> $initialPreview,
+                'initialPreviewConfig' => $initialConfig,
+                "uploadUrl" => Url::to(['lift/' . $lift_id . '/upload']),
+                'deleteUrl' => Url::to(['/lift/' . $lift_id . '/file-delete-lift']), 
+                'removeClass' => 'btn btn-default pull-right',
+                'msgUploadBegin' => Yii::t('app', 'Please wait, system is uploading the files'),
+                'msgUploadThreshold' => Yii::t('app', 'Please wait, system is uploading the files'),
+                'msgUploadEnd' => Yii::t('app', 'Done'),
+                'dropZoneClickTitle'=>'',
+                "uploadAsync" => false,
+                "browseOnZoneClick"=>true,
+                'fileActionSettings' => [
+                    'showZoom' => true,
+                    'showRemove' => true,
+                    'showUpload' => false,
+                ],
+                'maxFileCount' => 20, 'maxFileSize' => 10000,
+            ],
+            
+                 
 
 
-
+            
+        ]);
+        ?>
+</div>

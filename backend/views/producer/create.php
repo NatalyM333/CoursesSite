@@ -31,7 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
             </div>
         </div>
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-12" style="<?=$dangerStyle?> margin-bottom:5px;">
             <?= $form->field($model, 'imageFile')->widget(FileInput::classname(),[
             'name' => 'attachment_49[]',
             'options'=>[
@@ -50,7 +50,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'deleteUrl' => Url::to(['/producer/' . $producer_id . '/file-delete-producer']),        
             ]
 ]); ?>
-
+<p class="text-danger"><?=$msg?></p>
 </div>
     <div class="row">
                 <div class="col-md-12">
