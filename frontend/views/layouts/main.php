@@ -23,7 +23,7 @@ AppAsset::register($this);
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
 </head>
-<body class="d-flex flex-column h-100">
+<body class="d-flex flex-column h-100" style = "background-color:#66a3ff;">
 <?php $this->beginBody() ?>
 
 <header>
@@ -84,7 +84,7 @@ AppAsset::register($this);
     </div>
 </main>
 
-<footer class="footer mt-auto py-3 text-muted" style="height: fit-content;">
+<footer class="footer mt-auto py-3 text-muted" style="height: fit-content; background-color:#a3c2c2;font-weight: bold !important;">
     <div class="container">
     <div class="container">
   <div class="row align-items-start">
