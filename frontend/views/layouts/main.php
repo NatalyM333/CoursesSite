@@ -44,9 +44,11 @@ AppAsset::register($this);
     ];
     if(Yii::$app->user->can('support')){
         $menuItems[] = ['label' => 'Технічна підтримка', 'url' => ['/site/producers-support']];
+        $menuItems[] = ['label' => 'Ліцензії та дозволи', 'url' => ['/site/document']];
     }
     if(Yii::$app->user->can('admin')){
         $menuItems[] = ['label' => 'Технічна підтримка', 'url' => ['/site/producers-support']];
+        $menuItems[] = ['label' => 'Ліцензії та дозволи', 'url' => ['/site/document']];
     }
     if (Yii::$app->user->isGuest) {
         $menuItems[] = ['label' => 'Реєстрація', 'url' => ['/site/signup']];

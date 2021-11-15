@@ -25,7 +25,7 @@ class m211115_162307_DocumentsTable extends Migration
      */
     public function safeDown()
     {
-        echo "m211115_162307_DocumentsTable cannot be reverted.\n";
+       
 
         return false;
     }

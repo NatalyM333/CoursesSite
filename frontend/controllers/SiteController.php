@@ -20,6 +20,8 @@ use common\models\Producer;
 use common\models\Lift;
 use common\models\User;
 use common\models\Support;
+use common\models\Document;
+
 
 /**
  * Site controller
@@ -206,6 +208,13 @@ class SiteController extends Controller
         return $this->render('support',[
             'support' => Support::find()->where(['producer_id' => $producer_id])->all(),
             'producer' => Producer::find()->where(['id' => $producer_id])->one()->name,
+        ]
+        );
+    }
+    public function actionDocument()
+    {
+        return $this->render('document',[
+            'document' => Document::find()->all(),
         ]
         );
     }
